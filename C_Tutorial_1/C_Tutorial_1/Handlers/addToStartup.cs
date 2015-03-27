@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using IWshRuntimeLibrary;
-using HAL_9000_Writting;
+using HAL_9000_Writting_Portable;
 
 namespace HAL_9000_Portable
 {
@@ -14,33 +14,16 @@ namespace HAL_9000_Portable
         {
             WshShell shell = new WshShell();
             IWshShortcut HAL_9000;
+            HAL_9000 = (IWshShortcut)shell.CreateShortcut("%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\HAL_9000.lnk");
             try
             {
-                HAL_9000 = (IWshShortcut)shell.CreateShortcut("%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\HAL_9000.lnk");
-                try
-                {
-                    HAL_9000.TargetPath = @"\HAL-9000\HAL-9000.exe";
-                    HAL_9000.Description = "Run HAL-9000";
-                    HAL_9000.Save();
-                }
-                catch
-                {
-                    Writting.halIsMissing();
-                }
+                HAL_9000.TargetPath = @"C:\Program Files\HAL-9000\HAL-9000.exe";
+                HAL_9000.Description = "Run HAL-9000";
+                HAL_9000.Save();
             }
             catch
             {
-                HAL_9000 = (IWshShortcut)shell.CreateShortcut("%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\HAL_9000.lnk");
-                try
-                {
-                    HAL_9000.TargetPath = @"\HAL-9000\HAL-9000.exe";
-                    HAL_9000.Description = "Run HAL-9000";
-                    HAL_9000.Save();
-                }
-                catch
-                {
-                    Writting.halIsMissing();
-                }
+                Writting.halIsMissing();
             }
         }
     }

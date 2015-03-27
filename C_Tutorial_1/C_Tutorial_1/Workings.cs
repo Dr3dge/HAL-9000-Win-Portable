@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using IWshRuntimeLibrary;
 using HAL_9000_Portable;
-using HAL_9000_Writting;
+using HAL_9000_Writting_Portable;
 using System.ComponentModel;
 using System.Threading;
 
@@ -17,7 +17,7 @@ namespace HAL_9000_Portable
 {
     class Workings
     {
-        public static string installPath = @"\HAL-9000\";
+        public static string installPath = Environment.CurrentDirectory;
         public static string name = null;
         public static string userInput = null;
         public static string tryInstallingHal = "Try installing HAL-9000 to use this feature.";
@@ -25,16 +25,16 @@ namespace HAL_9000_Portable
         public static BackgroundWorker downloader = new BackgroundWorker();
         public static void Program()
         {
-            if (System.IO.File.Exists(installPath + "HAL-9000.exe"))
+            if (System.IO.File.Exists(installPath + "\\HAL-9000 Portable.exe"))
             {
                 halInstalled = true;
             }
             if (halInstalled == true)
             {
-                if (!System.IO.File.Exists(installPath + "config.txt"))
+                if (!System.IO.File.Exists(installPath + "\\config.txt"))
                 {
-                    System.IO.File.Create(installPath + "config.txt").Dispose();
-                    using (TextWriter tw = new StreamWriter(installPath + "config.txt"))
+                    System.IO.File.Create(installPath + "\\config.txt").Dispose();
+                    using (TextWriter tw = new StreamWriter(installPath + "\\config.txt"))
                     {
                         tw.WriteLine("name = Dave");
                         tw.Close();
@@ -47,7 +47,7 @@ namespace HAL_9000_Portable
             }
             if (halInstalled == true)
             {
-                name = System.IO.File.ReadLines(@"\HAL-9000\config.txt").Take(1).First().Replace("name = ", "");
+                name = System.IO.File.ReadLines(installPath + "\\config.txt").Take(1).First().Replace("name = ", "");
             }
             else if (halInstalled == false)
             {
@@ -80,12 +80,22 @@ namespace HAL_9000_Portable
                 {
                     name = userInput.Replace("my name is ", ""); // Removes "my name is" from the string, leaving the desired name
                     name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower()); // Changes the name to all lowercase, then changing the first letter to uppercase
+                    using (TextWriter tw = new StreamWriter(installPath + "\\config.txt"))
+                    {
+                        tw.WriteLine("name = " + name);
+                        tw.Close();
+                    }
                     Writting.nameSet();
                 }
                 else if (userInput == "my name is not dave" || userInput == "im not dave")
                 {
                     Writting.whatIsYourName();
                     name = Console.ReadLine(); // Sets the user's name to what the user writes
+                    using (TextWriter tw = new StreamWriter(installPath + "\\config.txt"))
+                    {
+                        tw.WriteLine("name = " + name);
+                        tw.Close();
+                    }
                     Writting.nameSet();
                 }
                 else if (userInput == "error test") // Function to test error message
@@ -279,24 +289,24 @@ namespace HAL_9000_Portable
                     {
                         if (halInstalled == true)
                             {
-                            if (System.IO.File.Exists(@"\HAL-9000\Updater Portable.exe"))
+                            if (System.IO.File.Exists(@"Updater Portable.exe"))
                             {
-                                System.IO.File.Delete(@"\HAL-9000\Updater Portable.exe");
+                                System.IO.File.Delete(@"Updater Portable.exe");
                                 using (WebClient Client = new WebClient())
                                 {
                                     Client.DownloadFile("https://dl.dropboxusercontent.com/s/mt07h5ju2jd1ksy/Updater%20Portable.exe?dl=0",
                                         @"\HAL-9000\Updater Portable.exe");
                                 }
-                                Process.Start(@"\HAL-9000\Updater Portable.exe");
+                                Process.Start(@"Updater Portable.exe");
                             }
                             else
                             {
                                 using (WebClient Client = new WebClient())
                                 {
                                     Client.DownloadFile("https://dl.dropboxusercontent.com/s/mt07h5ju2jd1ksy/Updater%20Portable.exe?dl=0",
-                                        @"\HAL-9000\Updater Portable.exe");
+                                        @"Updater Portable.exe");
                                 }
-                                Process.Start(@"\HAL-9000\Updater Portable.exe");
+                                Process.Start(@"Updater Portable.exe");
                             }
                         }
                         else
@@ -334,12 +344,12 @@ namespace HAL_9000_Portable
                                 process2[0].Kill();
                             }
                             Thread.Sleep(50);
-                            System.IO.File.Delete(@"\HAL-9000\HAL-9000.exe");
-                            System.IO.File.Delete(@"\HAL-9000\HALSync.exe");
-                            System.IO.File.Delete(@"\HAL-9000\SystemTray Handler.exe");
-                            System.IO.File.Delete(@"\HAL-9000\Updater.exe");
-                            System.IO.File.Delete(@"\HAL-9000\Writting.dll");
-                            Directory.Delete(@"\HAL-9000");
+                            System.IO.File.Delete(@"C:\Program Files\HAL-9000\HAL-9000.exe");
+                            System.IO.File.Delete(@"C:\Program Files\HAL-9000\HALSync.exe");
+                            System.IO.File.Delete(@"C:\Program Files\HAL-9000\SystemTray Handler.exe");
+                            System.IO.File.Delete(@"C:\Program Files\HAL-9000\Updater.exe");
+                            System.IO.File.Delete(@"C:\Program Files\HAL-9000\Writting.dll");
+                            Directory.Delete(@"C:\Program Files\HAL-9000");
                             Console.WriteLine();
                             Console.WriteLine("HAL-9000 has been successfully uninstalled");
                             Console.WriteLine();
@@ -354,13 +364,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\ChromeSetup.msi"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\ChromeSetup.msi"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/qn /quiet /norestart";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\ChromeSetup.msi";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\ChromeSetup.msi";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -369,12 +379,12 @@ namespace HAL_9000_Portable
                             downloadHandler.Handler();
                             WebClient Client = new WebClient();
                             Client.DownloadFile("https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7BA8BD4B13-A296-F51B-E054-9F866D4BA41D%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable%26installdataindex%3Ddefaultbrowser/dl/chrome/install/googlechromestandaloneenterprise64.msi",
-                                @"HAL's Downloads\ChromeSetup.msi");
+                                @"\HAL-9000\HAL's Downloads\ChromeSetup.msi");
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/qn /quiet /norestart";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\ChromeSetup.msi";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\ChromeSetup.msi";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -388,13 +398,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\wrar521.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\wrar521.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/s /v /qn /min";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\wrar521.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\wrar521.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -402,12 +412,12 @@ namespace HAL_9000_Portable
                         {
                             downloadHandler.Handler();
                             WebClient Client = new WebClient();
-                            Client.DownloadFile("http://www.rarlab.com/rar/winrar-x64-521.exe", @"HAL's Downloads\wrar521.exe");
+                            Client.DownloadFile("http://www.rarlab.com/rar/winrar-x64-521.exe", @"\HAL-9000\HAL's Downloads\wrar521.exe");
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/s /v /qn /min";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\wrar521.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\wrar521.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -421,13 +431,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\npp.6.7.5.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\npp.6.7.5.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/S";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\npp.6.7.5.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\npp.6.7.5.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -438,12 +448,12 @@ namespace HAL_9000_Portable
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
                                 Client.DownloadFile("http://dl.notepad-plus-plus.org/downloads/6.x/6.7.5/npp.6.7.5.Installer.exe",
-                                    @"HAL's Downloads\npp.6.7.5.exe");
+                                    @"\HAL-9000\HAL's Downloads\npp.6.7.5.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/S";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\npp.6.7.5.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\npp.6.7.5.exe";
                                 Process.Start(Installer);
                             });
 
@@ -462,13 +472,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\vlc-2.2.0-win32.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\vlc-2.2.0-win32.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/L=1033 /S";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\vlc-2.2.0-win32.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\vlc-2.2.0-win32.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -478,12 +488,13 @@ namespace HAL_9000_Portable
                             {
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
-                                Client.DownloadFile("https://get.videolan.org/vlc/2.2.0/win32/vlc-2.2.0-win32.exe", @"HAL's Downloads\vlc-2.2.0-win32.exe");
+                                Client.DownloadFile("https://get.videolan.org/vlc/2.2.0/win32/vlc-2.2.0-win32.exe",
+                                    @"\HAL-9000\HAL's Downloads\vlc-2.2.0-win32.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/L=1033 /S";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\vlc-2.2.0-win32.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\vlc-2.2.0-win32.exe";
                                 Process.Start(Installer);
                             });
 
@@ -502,13 +513,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\gimp-2.8.14.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\gimp-2.8.14.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/VERYSILENT /NORESTART";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\gimp-2.8.14.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\gimp-2.8.14.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -518,12 +529,13 @@ namespace HAL_9000_Portable
                             {
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
-                                Client.DownloadFile("http://download.gimp.org/pub/gimp/v2.8/windows/gimp-2.8.14-setup-1.exe", @"HAL's Downloads\gimp-2.8.14.exe");
+                                Client.DownloadFile("http://download.gimp.org/pub/gimp/v2.8/windows/gimp-2.8.14-setup-1.exe",
+                                    @"\HAL-9000\HAL's Downloads\gimp-2.8.14.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/VERYSILENT /NORESTART";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\gimp-2.8.14.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\gimp-2.8.14.exe";
                                 Process.Start(Installer);
                             });
 
@@ -542,13 +554,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\advanced_systemcare_installer.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\advanced_systemcare_installer.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/S /EN";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\advanced_systemcare_installer.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\advanced_systemcare_installer.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -559,12 +571,12 @@ namespace HAL_9000_Portable
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
                                 Client.DownloadFile("http://download.iobit.com/advanced_systemcare_installer.exe",
-                                    @"HAL's Downloads\advanced_systemcare_installer.exe");
+                                    @"\HAL-9000\HAL's Downloads\advanced_systemcare_installer.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/S /EN";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\advanced_systemcare_installer.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\advanced_systemcare_installer.exe";
                                 Process.Start(Installer);
                             });
 
@@ -583,13 +595,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\java.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\java.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/s";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\java.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\java.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -599,12 +611,13 @@ namespace HAL_9000_Portable
                             {
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
-                                Client.DownloadFile("http://javadl.sun.com/webapps/download/AutoDL?BundleId=79071", @"HAL's Downloads\java.exe");
+                                Client.DownloadFile("http://javadl.sun.com/webapps/download/AutoDL?BundleId=79071",
+                                    @"\HAL-9000\HAL's Downloads\java.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/s";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\java.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\java.exe";
                                 Process.Start(Installer);
                             });
 
@@ -623,13 +636,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\avg_free.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\avg_free.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/UILevel=silent /InstallToolbar=0 /ChangeBrowserSearchProvider=0 /SelectedLanguage=1033 /InstallSidebar=0 /ParticipateProductImprovement=0 /DontRestart /KillProcessesIfNeeded";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\avg_free.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\avg_free.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -640,12 +653,12 @@ namespace HAL_9000_Portable
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
                                 Client.DownloadFile("http://software-files-a.cnet.com/s/software/14/10/54/26/avg_free_stb_all_5751p1_177.exe",
-                                    @"HAL's Downloads\avg_free.exe");
+                                    @"\HAL-9000\HAL's Downloads\avg_free.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/UILevel=silent /InstallToolbar=0 /ChangeBrowserSearchProvider=0 /SelectedLanguage=1033 /InstallSidebar=0 /ParticipateProductImprovement=0 /DontRestart /KillProcessesIfNeeded";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\avg_free.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\avg_free.exe";
                                 Process.Start(Installer);
                             });
 
@@ -664,13 +677,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\wdexpress_full.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\wdexpress_full.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/s";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\wdexpress_full.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\wdexpress_full.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -681,12 +694,12 @@ namespace HAL_9000_Portable
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
                                 Client.DownloadFile("http://download.microsoft.com/download/9/6/4/96442E58-C65C-4122-A956-CCA83EECCD03/wdexpress_full.exe",
-                                    @"HAL's Downloads\wdexpress_full.exe");
+                                    @"\HAL-9000\HAL's Downloads\wdexpress_full.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/s";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\wdexpress_full.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\wdexpress_full.exe";
                                 Process.Start(Installer);
                             });
 
@@ -705,13 +718,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\SteamSetup.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\SteamSetup.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/s";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\SteamSetup.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\SteamSetup.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -721,12 +734,13 @@ namespace HAL_9000_Portable
                             {
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
-                                Client.DownloadFile("http://media.steampowered.com/client/installer/SteamSetup.exe", @"HAL's Downloads\SteamSetup.exe");
+                                Client.DownloadFile("http://media.steampowered.com/client/installer/SteamSetup.exe",
+                                    @"\HAL-9000\HAL's Downloads\SteamSetup.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/s";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\SteamSetup.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\SteamSetup.exe";
                                 Process.Start(Installer);
                             });
 
@@ -745,13 +759,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\GitHubSetup.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\GitHubSetup.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/s";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\GitHubSetup.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\GitHubSetup.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -761,12 +775,13 @@ namespace HAL_9000_Portable
                             {
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
-                                Client.DownloadFile("https://github-windows.s3.amazonaws.com/GitHubSetup.exe", @"HAL's Downloads\GitHubSetup.exe");
+                                Client.DownloadFile("https://github-windows.s3.amazonaws.com/GitHubSetup.exe",
+                                    @"\HAL-9000\HAL's Downloads\GitHubSetup.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/s";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\GitHubSetup.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\GitHubSetup.exe";
                                 Process.Start(Installer);
                             });
 
@@ -785,13 +800,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\BitTorrent.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\BitTorrent.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/S";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\BitTorrent.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\BitTorrent.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -801,13 +816,13 @@ namespace HAL_9000_Portable
                             {
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
-                                Client.DownloadFile("http://download-new.utorrent.com/endpoint/bittorrent/os/win/track/stable", 
-                                    @"HAL's Downloads\BitTorrent.exe");
+                                Client.DownloadFile("http://download-new.utorrent.com/endpoint/bittorrent/os/win/track/stable",
+                                    @"\HAL-9000\HAL's Downloads\BitTorrent.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/S";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\BitTorrent.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\BitTorrent.exe";
                                 Process.Start(Installer);
                             });
 
@@ -826,13 +841,13 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.File.Exists(@"HAL's Downloads\\VirtualBox.exe"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HAL's Downloads\VirtualBox.exe"))
                         {
                             ProcessStartInfo Installer = new ProcessStartInfo();
                             Installer.Arguments = "/silent";
                             Installer.CreateNoWindow = true;
                             Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                            Installer.FileName = @"HAL's Downloads\\VirtualBox.exe";
+                            Installer.FileName = @"\HAL-9000\HAL's Downloads\VirtualBox.exe";
                             Process.Start(Installer);
                             Writting.successfullyInstalled();
                         }
@@ -843,12 +858,12 @@ namespace HAL_9000_Portable
                                 downloadHandler.Handler();
                                 WebClient Client = new WebClient();
                                 Client.DownloadFile("http://dlc-cdn.sun.com/virtualbox/4.3.26/VirtualBox-4.3.26-98988-Win.exe",
-                                    @"HAL's Downloads\VirtualBox.exe");
+                                    @"\HAL-9000\HAL's Downloads\VirtualBox.exe");
                                 ProcessStartInfo Installer = new ProcessStartInfo();
                                 Installer.Arguments = "/silent";
                                 Installer.CreateNoWindow = true;
                                 Installer.WindowStyle = ProcessWindowStyle.Hidden;
-                                Installer.FileName = @"HAL's Downloads\\VirtualBox.exe";
+                                Installer.FileName = @"\HAL-9000\HAL's Downloads\VirtualBox.exe";
                                 Process.Start(Installer);
                             });
 
@@ -867,16 +882,9 @@ namespace HAL_9000_Portable
                 {
                     try
                     {
-                        if (System.IO.Directory.Exists(@"\HAL-9000"))
+                        if (System.IO.File.Exists(@"\HAL-9000\HALSync.exe"))
                         {
-                            if (System.IO.File.Exists(@"\HAL-9000\HALSync.exe"))
-                            {
-                                Process.Start(@"\HAL-9000\HALSync.exe");
-                            }
-                            else
-                            {
-                                Writting.halsyncIsMissingUDReq();
-                            }
+                            Process.Start(@"\HAL-9000\HALSync.exe");
                         }
                         else
                         {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using HAL_9000_Portable;
 using System.IO;
 using System.Diagnostics;
-using HAL_9000_Writting;
+using HAL_9000_Writting_Portable;
 using System.Threading;
 using System.Net.Sockets;
 
@@ -64,12 +64,12 @@ namespace HAL_9000_Portable
 
         static void Program()
         {
-            Process[] process = Process.GetProcessesByName("SystemTray Handler");
+            Process[] process = Process.GetProcessesByName("SystemTray Handler Portable");
             if (process.Length == 0)
             {
-                if (File.Exists(@"\SystemTray Handler.exe"))
+                if (File.Exists(@"\HAL-9000\SystemTray Handler Portable.exe"))
                 {
-                    Process.Start(@"\SystemTray Handler.exe");
+                    Process.Start(@"\HAL-9000\SystemTray Handler Portable.exe");
                 }
             }
             Main:

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace HAL_9000_Writting
+namespace HAL_9000_Writting_Portable
 {
     public class Writting
     {
@@ -128,7 +128,8 @@ namespace HAL_9000_Writting
         }
         public static void sorryDave()
         {
-            string name = File.ReadLines(@"\HAL-9000\config.txt").Take(1).First();
+            string installPath = Environment.CurrentDirectory;
+            string name = File.ReadLines(installPath + "\\config.txt").Take(1).First();
             Console.WriteLine("I'm sorry " + name.Replace("name = ", "") + ", I'm afraid I can't do that.");
         }
         public static void whatIsYourName()
@@ -139,7 +140,8 @@ namespace HAL_9000_Writting
         }
         public static void nameSet()
         {
-            string name = File.ReadLines(@"\HAL-9000\config.txt").Take(1).First();
+            string installPath = Environment.CurrentDirectory;
+            string name = File.ReadLines(installPath + "\\config.txt").Take(1).First();
             Console.WriteLine("Name set to " + name.Replace("name = ", ""));
         }
         public static void help()

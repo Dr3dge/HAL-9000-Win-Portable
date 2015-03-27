@@ -16,7 +16,7 @@ namespace Installer
         {
             try
             {
-                if (System.IO.File.Exists(@"\HAL-9000\HAL-9000.exe"))
+                if (System.IO.File.Exists(@"HAL-9000\HAL-9000 Portable.exe"))
                 {
                     string userInput = null;
                     Console.WriteLine();
@@ -36,27 +36,27 @@ namespace Installer
 
                         Console.WriteLine("Downloading and Installing...");
 
-                        if (System.IO.File.Exists(@"\HAL-9000\HALSync Portable.exe"))
+                        if (System.IO.File.Exists(@"HAL-9000\HALSync Portable.exe"))
                         {
                             try
                             {
                                 Process[] proc2 = Process.GetProcessesByName("HALSync Portable");
                                 proc2[0].Kill();
                                 Thread.Sleep(TimeSpan.FromMilliseconds(300));
-                                System.IO.File.Delete(@"\HAL-9000\HALSync Portable.exe");
+                                System.IO.File.Delete(@"HAL-9000\HALSync Portable.exe");
                                 using (WebClient Client = new WebClient())
                                 {
                                     Client.DownloadFile("https://dl.dropboxusercontent.com/s/6zjti9mbb1fy0hp/HALSync%20Portable.exe?dl=0",
-                                        @"\HAL-9000\HALSync Portable.exe");
+                                        @"HAL-9000\HALSync Portable.exe");
                                 }
                             }
                             catch
                             {
-                                System.IO.File.Delete(@"\HAL-9000\HALSync Portable.exe");
+                                System.IO.File.Delete(@"HAL-9000\HALSync Portable.exe");
                                 using (WebClient Client = new WebClient())
                                 {
                                     Client.DownloadFile("https://dl.dropboxusercontent.com/s/6zjti9mbb1fy0hp/HALSync%20Portable.exe?dl=0",
-                                        @"\HAL-9000\HALSync Portable.exe");
+                                        @"HAL-9000\HALSync Portable.exe");
                                 }
                             }
                         }
@@ -65,7 +65,7 @@ namespace Installer
                             using (WebClient Client = new WebClient())
                                 {
                                     Client.DownloadFile("https://dl.dropboxusercontent.com/s/6zjti9mbb1fy0hp/HALSync%20Portable.exe?dl=0",
-                                        @"\HAL-9000\HALSync Portable.exe");
+                                        @"HAL-9000\HALSync Portable.exe");
                                 }
                         }
                         Console.WriteLine();
@@ -134,8 +134,8 @@ namespace Installer
         {
             using (WebClient Client = new WebClient())
             {
-                Client.DownloadFile("https://dl.dropboxusercontent.com/s/yzc8m0gbi1la2zk/Writting.dll?dl=0",
-                    @"\HAL-9000\Writting.dll");
+                Client.DownloadFile("https://dl.dropboxusercontent.com/s/wjuer5n7fczshxr/Writting%20Portable.dll?dl=0",
+                    @"\HAL-9000\Writting Portable.dll");
             }
         }
 
@@ -195,19 +195,19 @@ namespace Installer
         {
             try
             {
-                System.IO.File.Delete(@"\HAL-9000\Writting.dll");
+                System.IO.File.Delete(@"\HAL-9000\Writting Portable.dll");
                 using (WebClient Client = new WebClient())
                 {
-                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/yzc8m0gbi1la2zk/Writting.dll?dl=0",
-                        @"\HAL-9000\Writting.dll");
+                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/wjuer5n7fczshxr/Writting%20Portable.dll?dl=0",
+                        @"\HAL-9000\Writting Portable.dll");
                 }
             }
             catch
             {
                 using (WebClient Client = new WebClient())
                 {
-                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/yzc8m0gbi1la2zk/Writting.dll?dl=0",
-                        @"\HAL-9000\Writting.dll");
+                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/wjuer5n7fczshxr/Writting%20Portable.dll?dl=0",
+                        @"\HAL-9000\Writting Portable.dll");
                 }
             }
         }

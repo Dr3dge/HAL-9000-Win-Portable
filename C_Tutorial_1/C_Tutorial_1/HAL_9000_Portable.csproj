@@ -125,8 +125,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Writting">
-      <HintPath>..\..\..\..\..\..\..\Program Files\HAL-9000\Writting.dll</HintPath>
+    <Reference Include="Writting Portable">
+      <HintPath>I:\HAL-9000\Writting Portable.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

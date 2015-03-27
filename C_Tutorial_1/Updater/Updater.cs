@@ -16,6 +16,15 @@ namespace Updater_Portable
             {
                 Console.WriteLine("Downloading and Installing Update...");
 
+                try
+                {
+                    Process[] proc = Process.GetProcessesByName("HAL-9000 Portable");
+                    proc[0].Kill();
+                    Thread.Sleep(TimeSpan.FromMilliseconds(300));
+                }
+                catch
+                { }
+
                 Thread update1 = new Thread(updateHAL9000);
                 Thread update2 = new Thread(updateWritting);
                 Thread update3 = new Thread(updateTrayHandler);
@@ -39,7 +48,7 @@ namespace Updater_Portable
                     }
                     catch
                     {
-                        System.IO.File.Delete(@"\HAL-9000\HALSync Portable.exe");
+                        System.IO.File.Delete(@"\HALSync Portable.exe");
                         using (WebClient Client = new WebClient())
                         {
                             Client.DownloadFile("https://dl.dropboxusercontent.com/s/6zjti9mbb1fy0hp/HALSync%20Portable.exe?dl=0",
@@ -64,7 +73,7 @@ namespace Updater_Portable
         }
         private static void updateTrayHandler(object obj)
         {
-            if (System.IO.File.Exists(@"\HAL-9000\SystemTray Handler.exe"))
+            if (System.IO.File.Exists(@"\HAL-9000\SystemTray Handler Portable.exe"))
             {
                 try
                 {
@@ -88,7 +97,7 @@ namespace Updater_Portable
                     }
                 }
             }
-            else if (!System.IO.File.Exists(@"\HAL-9000\SystemTray Handler Portable.exe.exe"))
+            else if (!System.IO.File.Exists(@"\HAL-9000\SystemTray Handler Portable.exe"))
             {
                 using (WebClient Client = new WebClient())
                 {
@@ -99,53 +108,36 @@ namespace Updater_Portable
         }
         private static void updateWritting(object obj)
         {
-            if (System.IO.File.Exists(@"\HAL-9000\Writting.dll"))
+            if (System.IO.File.Exists(@"\HAL-9000\Writting Portable.dll"))
             {
-                System.IO.File.Delete(@"\HAL-9000\Writting.dll");
+                System.IO.File.Delete(@"\HAL-9000\Writting Portable.dll");
                 using (WebClient Client = new WebClient())
                 {
-                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/yzc8m0gbi1la2zk/Writting.dll?dl=0",
-                        @"\HAL-9000\Writting.dll");
+                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/wjuer5n7fczshxr/Writting%20Portable.dll?dl=0",
+                        @"\HAL-9000\Writting Portable.dll");
                 }
             }
-            else if (!System.IO.File.Exists(@"\HAL-9000\Writting.dll"))
+            else if (!System.IO.File.Exists(@"\HAL-9000\Writting Portable.dll"))
             {
                 using (WebClient Client = new WebClient())
                 {
-                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/yzc8m0gbi1la2zk/Writting.dll?dl=0",
-                        @"\HAL-9000\Writting.dll");
+                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/wjuer5n7fczshxr/Writting%20Portable.dll?dl=0",
+                        @"\HAL-9000\Writting Portable.dll");
                 }
             }
         }
         private static void updateHAL9000(object obj)
         {
-            if (System.IO.File.Exists(@"\HAL-9000\HAL-9000.exe"))
+            if (System.IO.File.Exists(@"\HAL-9000\HAL-9000 Portable.exe"))
             {
-                try
+                System.IO.File.Delete(@"\HAL-9000\HAL-9000 Portable.exe");
+                using (WebClient Client = new WebClient())
                 {
-                    Process[] proc = Process.GetProcessesByName("HAL-9000 Portable");
-                    proc[0].Kill();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(300));
-                    System.IO.File.Delete(@"\HAL-9000\HAL-9000 Portable.exe");
-                    using (WebClient Client = new WebClient())
-                    {
-                        Client.DownloadFile("https://dl.dropboxusercontent.com/s/mfdr9w0d71ci498/HAL-9000%20Portable.exe?dl=0",
-                            @"\HAL-9000\HAL-9000 Portable.exe");
-                    }
-                    Thread.Sleep(300);
-                    Process.Start(@"\HAL-9000\HAL-9000 Portable.exe.exe");
+                    Client.DownloadFile("https://dl.dropboxusercontent.com/s/mfdr9w0d71ci498/HAL-9000%20Portable.exe?dl=0",
+                        @"\HAL-9000\HAL-9000 Portable.exe");
                 }
-                catch
-                {
-                    System.IO.File.Delete(@"\HAL-9000\HAL-9000 Portable.exe");
-                    using (WebClient Client = new WebClient())
-                    {
-                        Client.DownloadFile("https://dl.dropboxusercontent.com/s/mfdr9w0d71ci498/HAL-9000%20Portable.exe?dl=0",
-                            @"\HAL-9000\HAL-9000 Portable.exe");
-                    }
-                    Thread.Sleep(300);
-                    Process.Start(@"\HAL-9000\HAL-9000 Portable.exe.exe");
-                }
+                Thread.Sleep(1000);
+                Process.Start(@"HAL-9000 Portable.exe");
             }
         }
     }

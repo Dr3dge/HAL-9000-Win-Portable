@@ -47,7 +47,7 @@ namespace SystemTray
         }
         private void closeHALSync_Click(object sender, EventArgs e)
         {
-            Process[] proc = Process.GetProcessesByName("HALSync");
+            Process[] proc = Process.GetProcessesByName("HALSync Portable");
             if (proc.Length != 0)
             {
                 proc[0].Kill();
@@ -60,14 +60,14 @@ namespace SystemTray
         }
         void runHAL_click(object sender, EventArgs e)
         {
-            Process.Start(@"\HAL-9000\HAL-9000.exe");
+            Process.Start(@"HAL-9000.exe");
         }
         void closeHalFull_click(object sender, EventArgs e)
         {
             try
             {
-                Process[] proc = Process.GetProcessesByName("HAL-9000");
-                Process[] proc2 = Process.GetProcessesByName("HALSync");
+                Process[] proc = Process.GetProcessesByName("HAL-9000 Portable");
+                Process[] proc2 = Process.GetProcessesByName("HALSync Portable");
                 if (proc.Length != 0)
                 {
                     proc[0].Kill();
@@ -88,7 +88,7 @@ namespace SystemTray
         {
             try
             {
-                Process[] proc = Process.GetProcessesByName("HAL-9000");
+                Process[] proc = Process.GetProcessesByName("HAL-9000 Portable");
                 proc[0].Kill();
             }
             catch

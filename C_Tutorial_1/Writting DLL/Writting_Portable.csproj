@@ -7,8 +7,8 @@
     <ProjectGuid>{EFFC8823-4B3E-4645-BE09-0DBD844AF316}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HAL_9000_Writting</RootNamespace>
-    <AssemblyName>Writting</AssemblyName>
+    <RootNamespace>HAL_9000_Writting_Portable</RootNamespace>
+    <AssemblyName>Writting Portable</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

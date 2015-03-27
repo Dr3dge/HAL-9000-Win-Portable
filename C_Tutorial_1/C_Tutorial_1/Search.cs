@@ -1,4 +1,4 @@
-﻿using HAL_9000_Writting;
+﻿using HAL_9000_Writting_Portable;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,13 +19,13 @@ namespace HAL_9000_Portable
 
             try
             {
-                Process.Start(@"\Google\Chrome\Application\chrome.exe", "https://www.google.com.au/search?q=" + search);
+                Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", "https://www.google.com.au/search?q=" + search);
             }
             catch
             {
                 try
                 {
-                    Process.Start(@" (x86)\Google\Chrome\Application\chrome.exe", "https://www.google.com.au/search?q=" + search);
+                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.google.com.au/search?q=" + search);
                 }
                 catch
                 {
@@ -40,13 +40,13 @@ namespace HAL_9000_Portable
 
             try
             {
-                Process.Start(@"\Mozilla Firefox\firefox.exe", "https://www.google.com.au/search?q=" + search);
+                Process.Start(@"C:\Program Files\Mozilla Firefox\firefox.exe", "https://www.google.com.au/search?q=" + search);
             }
             catch
             {
                 try
                 {
-                    Process.Start(@" (x86)\Mozilla Firefox\firefox.exe", "https://www.google.com.au/search?q=" + search);
+                    Process.Start(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "https://www.google.com.au/search?q=" + search);
                 }
                 catch
                 {
@@ -64,13 +64,13 @@ namespace HAL_9000_Portable
 
             try
             {
-                Process.Start(@"\Google\Chrome\Application\chrome.exe", "https://www.youtube.com/results?search_query=" + search);
+                Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", "https://www.youtube.com/results?search_query=" + search);
             }
             catch
             {
                 try
                 {
-                    Process.Start(@" (x86)\Google\Chrome\Application\chrome.exe", "https://www.youtube.com/results?search_query=" + search);
+                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.youtube.com/results?search_query=" + search);
                 }
                 catch
                 {
@@ -85,13 +85,13 @@ namespace HAL_9000_Portable
 
             try
             {
-                Process.Start(@"\Mozilla Firefox\firefox.exe", "https://www.youtube.com/results?search_query=" + search);
+                Process.Start(@"C:\Program Files\Mozilla Firefox\firefox.exe", "https://www.youtube.com/results?search_query=" + search);
             }
             catch
             {
                 try
                 {
-                    Process.Start(@" (x86)\Mozilla Firefox\firefox.exe", "https://www.youtube.com/results?search_query=" + search);
+                    Process.Start(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "https://www.youtube.com/results?search_query=" + search);
                 }
                 catch
                 {
@@ -109,12 +109,12 @@ namespace HAL_9000_Portable
                 string website = Workings.userInput.Replace("website ", "");
                 try
                 {
-                    Process.Start(@"\Google\Chrome\Application\chrome.exe", website);
+                    Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", website);
                     Writting.siteLaunched();
                 }
                 catch
                 {
-                    Process.Start(@" (x86)\Google\Chrome\Application\chrome.exe", website);
+                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", website);
                     Writting.siteLaunched();
                 }
             }
@@ -130,12 +130,12 @@ namespace HAL_9000_Portable
                 string website = Workings.userInput.Replace("goto ", "");
                 try
                 {
-                    Process.Start(@"\Google\Chrome\Application\chrome.exe", website);
+                    Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", website);
                     Writting.siteLaunched();
                 }
                 catch
                 {
-                    Process.Start(@" (x86)\Google\Chrome\Application\chrome.exe", website);
+                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", website);
                     Writting.siteLaunched();
                 }
             }
@@ -465,7 +465,7 @@ namespace HAL_9000_Portable
 
                 try
                 {
-                    path = @"\";
+                    path = @"C:\Program Files\";
                     string searchPattern = toFind + ".exe";
 
                     DirectoryInfo di = new DirectoryInfo(path);

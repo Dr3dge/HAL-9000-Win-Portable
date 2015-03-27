@@ -12,7 +12,7 @@ namespace HALSync
 {
     public partial class HALSync : Form
     {
-        public static string directoryToWatch = @"C:\Users\" + Environment.UserName + "\\HALSync";
+        public static string directoryToWatch = @"HALSync";
         public HALSync()
         {
             InitializeComponent();
