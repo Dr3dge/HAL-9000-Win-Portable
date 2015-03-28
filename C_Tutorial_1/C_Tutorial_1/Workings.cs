@@ -1012,6 +1012,10 @@ namespace HAL_9000_Portable
                 {
                     processKiller.winSD();
                 }
+                else if (userInput == "reboot")
+                {
+                    processKiller.winRB();
+                }
                 else if (guess == 0)
                 {
                     Writting.sorryDave();

@@ -60,5 +60,26 @@ namespace HAL_9000_Portable
                 Console.WriteLine("Operation Canceled");
             }
         }
+        public static void winRB()
+        {
+            Console.WriteLine("Are you sure?");
+            string yesNo = Console.ReadLine();
+
+            if (yesNo.ToLower() == "y" || yesNo.ToLower() == "yes")
+            {
+                try
+                {
+                    Process.Start("shutdown", "/r /t 0");
+                }
+                catch
+                {
+                    Writting.sorryDave();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Operation Canceled");
+            }
+        }
     }
 }
